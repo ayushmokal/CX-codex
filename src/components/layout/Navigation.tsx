@@ -8,7 +8,8 @@ import {
   Settings,
   Users,
   FileText,
-  Upload
+  Upload,
+  Library
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useAuth } from '../../contexts/AuthContext';
@@ -25,6 +26,7 @@ export function Navigation({ currentView, onViewChange }: NavigationProps) {
     { id: 'dashboard', label: 'Dashboard', icon: Home, roles: ['agent', 'coach', 'admin'] },
     { id: 'quiz', label: 'Take Quiz', icon: Play, roles: ['agent', 'coach', 'admin'] },
     { id: 'leaderboard', label: 'Leaderboard', icon: Trophy, roles: ['agent', 'coach', 'admin'] },
+    { id: 'cx-codex', label: 'CX Codex', icon: Library, roles: ['agent', 'coach', 'admin'] },
     { id: 'manage-questions', label: 'Questions', icon: FileText, roles: ['coach', 'admin'] },
     { id: 'manage-topics', label: 'Topics', icon: BookOpen, roles: ['coach', 'admin'] },
     { id: 'manage-categories', label: 'Categories', icon: Tag, roles: ['coach', 'admin'] },

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Play, Trophy } from 'lucide-react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Home, Play, Trophy, Library } from 'lucide-react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,6 +22,7 @@ import { UserManagement } from './components/admin/UserManagement';
 import { QuizImport } from './components/admin/QuizImport';
 import { Settings } from './components/admin/Settings';
 import { QuizRoute } from './components/quiz/QuizRoute';
+import { CxCodex } from './pages/CxCodex';
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     if (path === '/') return 'dashboard';
     if (path.startsWith('/quiz')) return 'quiz';
     if (path === '/leaderboard') return 'leaderboard';
+    if (path === '/cx-codex') return 'cx-codex';
     if (path === '/admin/users') return 'manage-users';
     if (path === '/admin/topics') return 'manage-topics';
     if (path === '/admin/questions') return 'manage-questions';
@@ -67,6 +69,9 @@ function Layout({ children }: { children: React.ReactNode }) {
         break;
       case 'leaderboard':
         navigate('/leaderboard');
+        break;
+      case 'cx-codex':
+        navigate('/cx-codex');
         break;
       case 'manage-users':
         navigate('/admin/users');
@@ -136,6 +141,15 @@ function Layout({ children }: { children: React.ReactNode }) {
             <Trophy className="w-5 h-5" />
             <span className="text-xs font-medium">Leaderboard</span>
           </button>
+          <button
+            onClick={() => handleViewChange('cx-codex')}
+            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
+              currentView === 'cx-codex' ? 'text-black bg-black/5' : 'text-[#46494D]'
+            }`}
+          >
+            <Library className="w-5 h-5" />
+            <span className="text-xs font-medium">CX Codex</span>
+          </button>
         </div>
       </div>
     </div>
@@ -155,6 +169,9 @@ function DashboardWithNavigation({ refreshTrigger }: { refreshTrigger: number })
         break;
       case 'leaderboard':
         navigate('/leaderboard');
+        break;
+      case 'cx-codex':
+        navigate('/cx-codex');
         break;
       case 'manage-users':
         navigate('/admin/users');
@@ -208,6 +225,7 @@ function MainApp() {
                 <Route path="/quiz" element={<QuizSelection />} />
                 <Route path="/quiz/:topicId" element={<QuizRoute />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
+                <Route path="/cx-codex" element={<CxCodex />} />
                 <Route path="/admin/users" element={<UserManagement />} />
                 <Route path="/admin/topics" element={<TopicManagement />} />
                 <Route path="/admin/questions" element={<QuestionManagement />} />
