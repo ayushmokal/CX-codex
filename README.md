@@ -13,8 +13,8 @@ A comprehensive role-based learning and assessment platform built for Ultrahuman
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/ayushmokal/quiz-hub-cx-spark.git
-cd quiz-hub-cx-spark
+git clone https://github.com/ayushuh/CX-codex_uh.git
+cd CX-codex_uh
 ```
 
 2. **Install dependencies**

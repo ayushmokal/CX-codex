@@ -50,8 +50,8 @@ The **Quiz Hub CX Spark** is a sophisticated role-based learning and assessment 
 
 1. **Clone Repository**
 ```bash
-git clone https://github.com/ayushmokal/quiz-hub-cx-spark.git
-cd quiz-hub-cx-spark
+git clone https://github.com/ayushuh/CX-codex_uh.git
+cd CX-codex_uh
 ```
 
 2. **Install Dependencies**
