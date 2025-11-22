@@ -1,25 +1,39 @@
-import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export function CxCodex() {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  return (
-    <div className="space-y-6">
-      <div className="space-y-1">
-        <p className="text-xs font-medium uppercase tracking-wider text-[#7A7D81]">
-          Knowledge Base
-        </p>
-        <h1 className="text-3xl font-semibold text-[#212121]">CX Codex</h1>
-        <p className="text-sm text-[#5C5F64]">
-          Explore the full CX documentation, SOPs, and troubleshooting playbooks
-          without leaving the dashboard.
-        </p>
-      </div>
+  useEffect(() => {
+    // Hide the footer inside the iframe to avoid duplication
+    const iframe = document.querySelector('iframe[title="CX Codex Knowledge Base"]') as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      const injectStyles = () => {
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (iframeDoc) {
+            const style = iframeDoc.createElement('style');
+            style.textContent = '.footer { display: none !important; }';
+            iframeDoc.head.appendChild(style);
+          }
+        } catch (e) {
+          console.log('Could not inject styles into iframe:', e);
+        }
+      };
 
-      <div className="relative h-[70vh] min-h-[600px] overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm">
+      // Inject after iframe loads
+      iframe.addEventListener('load', injectStyles);
+      if (isLoaded) injectStyles();
+    }
+  }, [isLoaded]);
+
+  return (
+    <div className="h-full w-full">
+      <div className="relative h-full w-full">
         {!isLoaded && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3" style={{
+            background: 'radial-gradient(circle at 15% 20%, #f4f7ff 0%, #d9e2ff 45%, #cbd5ff 70%, #c0cdff 100%)'
+          }}>
             <Loader2 className="h-6 w-6 animate-spin text-[#212121]" />
             <p className="text-sm text-[#5C5F64]">Loading CX Codex…</p>
           </div>
@@ -27,7 +41,7 @@ export function CxCodex() {
         <iframe
           src="/cx-codex-embed/index.html"
           title="CX Codex Knowledge Base"
-          className="h-full w-full"
+          className="h-full w-full border-0"
           loading="lazy"
           onLoad={() => setIsLoaded(true)}
         />

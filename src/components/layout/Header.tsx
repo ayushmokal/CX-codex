@@ -24,16 +24,22 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#46494D]/20 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-white/30 backdrop-blur shadow-sm" style={{
+      background: 'rgba(255, 255, 255, 0.8)',
+      backdropFilter: 'blur(24px)',
+      boxShadow: '0 25px 60px rgba(15, 23, 42, 0.1)'
+    }}>
       <div className="container flex h-14 md:h-16 items-center justify-between px-4 lg:px-6">
         {/* Logo */}
         <div className="flex items-center space-x-2 md:space-x-3">
-          <div className="p-1.5 md:p-2 bg-black rounded-lg shadow-lg">
+          <div className="p-1.5 md:p-2 rounded-lg shadow-lg" style={{
+            background: 'linear-gradient(135deg, #5b21b6, #8b5cf6)'
+          }}>
             <Brain className="h-4 w-4 md:h-5 md:w-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base md:text-lg font-bold text-black">CX Ultra Quiz</h1>
-            <p className="text-xs text-[#46494D] hidden sm:block">Personalised, Predictive, Proven</p>
+            <h1 className="text-base md:text-lg font-bold" style={{ color: '#0f172a' }}>CX Ultra Quiz</h1>
+            <p className="text-xs hidden sm:block" style={{ color: 'rgba(15, 23, 42, 0.6)' }}>Personalised, Predictive, Proven</p>
           </div>
         </div>
 
@@ -43,7 +49,9 @@ export function Header() {
             <Button variant="ghost" className="relative h-9 w-9 md:h-10 md:w-10 rounded-full hover:bg-[#F5F5F5]">
               <Avatar className="h-9 w-9 md:h-10 md:w-10">
                 <AvatarImage src={user?.avatar} alt={user?.name} />
-                <AvatarFallback className="bg-black text-white text-sm font-medium">
+                <AvatarFallback className="text-white text-sm font-medium" style={{
+                  background: 'linear-gradient(135deg, #5b21b6, #8b5cf6)'
+                }}>
                   {user?.name?.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </AvatarFallback>
               </Avatar>

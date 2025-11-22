@@ -8,7 +8,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { GlobalStateProvider } from './contexts/GlobalStateContext';
 import { LoginPage } from './components/auth/LoginPage';
-import { Header } from './components/layout/Header';
 import { Navigation } from './components/layout/Navigation';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { QuizSelection } from './components/quiz/QuizSelection';
@@ -28,18 +27,18 @@ const queryClient = new QueryClient();
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
-  
+
   if (!user) {
     return <LoginPage />;
   }
-  
+
   return <>{children}</>;
 }
 
 function Layout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Extract current view from pathname for navigation highlighting
   const getCurrentView = () => {
     const path = location.pathname;
@@ -100,52 +99,47 @@ function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <Header />
+    <div className="min-h-screen" style={{ background: 'radial-gradient(circle at 15% 20%, #f4f7ff 0%, #d9e2ff 45%, #cbd5ff 70%, #c0cdff 100%)' }}>
       <div className="flex">
         <div className="hidden lg:block">
           <Navigation currentView={currentView} onViewChange={handleViewChange} />
         </div>
-        <main className="flex-1 p-4 md:p-6 lg:p-8 pb-20 lg:pb-8">
+        <main className={`flex-1 ${currentView === 'cx-codex' ? 'h-screen overflow-hidden' : 'p-4 md:p-6 lg:p-8 pb-20 lg:pb-8'}`}>
           {children}
         </main>
       </div>
-      
+
       {/* Mobile Navigation */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#46494D]/20 p-2 pb-safe">
         <div className="flex justify-around">
           <button
             onClick={() => handleViewChange('dashboard')}
-            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
-              currentView === 'dashboard' ? 'text-black bg-black/5' : 'text-[#46494D]'
-            }`}
+            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${currentView === 'dashboard' ? 'text-black bg-black/5' : 'text-[#46494D]'
+              }`}
           >
             <Home className="w-5 h-5" />
             <span className="text-xs font-medium">Home</span>
           </button>
           <button
             onClick={() => handleViewChange('quiz')}
-            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
-              currentView === 'quiz' ? 'text-black bg-black/5' : 'text-[#46494D]'
-            }`}
+            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${currentView === 'quiz' ? 'text-black bg-black/5' : 'text-[#46494D]'
+              }`}
           >
             <Play className="w-5 h-5" />
             <span className="text-xs font-medium">Quiz</span>
           </button>
           <button
             onClick={() => handleViewChange('leaderboard')}
-            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
-              currentView === 'leaderboard' ? 'text-black bg-black/5' : 'text-[#46494D]'
-            }`}
+            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${currentView === 'leaderboard' ? 'text-black bg-black/5' : 'text-[#46494D]'
+              }`}
           >
             <Trophy className="w-5 h-5" />
             <span className="text-xs font-medium">Leaderboard</span>
           </button>
           <button
             onClick={() => handleViewChange('cx-codex')}
-            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
-              currentView === 'cx-codex' ? 'text-black bg-black/5' : 'text-[#46494D]'
-            }`}
+            className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${currentView === 'cx-codex' ? 'text-black bg-black/5' : 'text-[#46494D]'
+              }`}
           >
             <Library className="w-5 h-5" />
             <span className="text-xs font-medium">CX Codex</span>
@@ -218,8 +212,8 @@ function MainApp() {
             <Layout>
               <Routes>
                 <Route path="/" element={
-                  <DashboardWithNavigation 
-                    refreshTrigger={dashboardRefreshTrigger} 
+                  <DashboardWithNavigation
+                    refreshTrigger={dashboardRefreshTrigger}
                   />
                 } />
                 <Route path="/quiz" element={<QuizSelection />} />
